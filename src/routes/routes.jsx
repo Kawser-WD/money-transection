@@ -30,6 +30,7 @@ import ManagerVerifyPhoneNumber from "../pages/auth/manager/ManagerVerifyPhoneNu
 import ManagerResetPassword from "../pages/auth/manager/ManagerResetPassword";
 import Manager2FAToken from "../pages/auth/manager/Manager2FAToken";
 import ManagerSignUp from "../pages/auth/manager/ManagerSignUp";
+import ManagerDashboard from "../components/form/Manager/ManagerDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -168,7 +169,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/manager-table",
-        element: <LcpTable />,
+        element: <ManagerDashboard />,
       },
     ],
   },
