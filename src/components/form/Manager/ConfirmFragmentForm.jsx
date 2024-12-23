@@ -4,7 +4,8 @@ import { useState } from "react";
 
 const ConfirmTransectionForm = ({
   handleOpenConfirmTransection,
-  handleTransectionSuccess,
+  handleFragmentSuccess,
+  handleFragmentFailed
 }) => {
   const {
     register,
@@ -36,90 +37,63 @@ const ConfirmTransectionForm = ({
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-5">
       <div className="w-full space-y-3">
         <Typography className="text-base font-medium text-[#48484D] leading-[22.4px]">
-          Lock Id
+          Request ID
         </Typography>
         <Input
           type="password"
-          placeholder="Enter Lock Id"
-          {...register("lockId", { required: "Lock Id is required" })}
+          placeholder="Enter Request ID"
+          {...register("requestID", { required: "Request Id is required" })}
           className={`!border ${
-            watchFields.lockId || focusedFields.lockId
+            watchFields.requestId || focusedFields.requestId
               ? "bg-[#E8F0FE] !border-[#CBD5E0]"
-              : errors.lockId
+              : errors.requestId
               ? "!border-red-500"
               : "!border-[#CBD5E0]"
           } text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 h-[48px] !rounded-3xl`}
-          onFocus={() => handleFocus("lockId")}
-          onBlur={() => handleBlur("lockId")}
+          onFocus={() => handleFocus("requestId")}
+          onBlur={() => handleBlur("requestId")}
           labelProps={{
             className: "hidden",
           }}
           containerProps={{ className: "min-w-[100px]" }}
         />
-        {errors.lockId && (
+        {errors.requestId && (
           <Typography className="text-sm text-red-500 mt-1">
-            {errors.lockId.message}
+            {errors.requestId.message}
           </Typography>
         )}
       </div>
       <div className="w-full space-y-3">
         <Typography className="text-base font-medium text-[#48484D] leading-[22.4px]">
-          Account Number
+          Fragments
         </Typography>
         <Input
           type="text"
-          placeholder="Enter Account Number"
-          {...register("accountNumber", {
-            required: "Account Number is required",
+          placeholder="Enter Fragments"
+          {...register("fragments", {
+            required: "Fragment is required",
           })}
           className={`!border ${
-            watchFields.accountNumber || focusedFields.accountNumber
+            watchFields.fragments || focusedFields.fragments
               ? "bg-[#E8F0FE] !border-[#CBD5E0]"
-              : errors.accountNumber
+              : errors.fragments
               ? "!border-red-500"
               : "!border-[#CBD5E0]"
           } text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 !h-12 !rounded-3xl`}
-          onFocus={() => handleFocus("accountNumber")}
-          onBlur={() => handleBlur("accountNumber")}
+          onFocus={() => handleFocus("fragments")}
+          onBlur={() => handleBlur("fragments")}
           labelProps={{
             className: "hidden",
           }}
           containerProps={{ className: "min-w-[100px]" }}
         />
-        {errors.accountNumber && (
+        {errors.fragments && (
           <Typography className="text-sm text-red-500 mt-1">
-            {errors.accountNumber.message}
+            {errors.fragments.message}
           </Typography>
         )}
       </div>
-      <div className="w-full space-y-3">
-        <Typography className="text-base font-medium text-[#48484D] leading-[22.4px]">
-          Amount
-        </Typography>
-        <Input
-          type="text"
-          placeholder="Enter Amount"
-          {...register("amount", { required: "Amount is required" })}
-          className={`!border ${
-            watchFields.amount || focusedFields.amount
-              ? "bg-[#E8F0FE] !border-[#CBD5E0]"
-              : errors.amount
-              ? "!border-red-500"
-              : "!border-[#CBD5E0]"
-          } text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 !h-12 !rounded-3xl`}
-          onFocus={() => handleFocus("amount")}
-          onBlur={() => handleBlur("amount")}
-          labelProps={{
-            className: "hidden",
-          }}
-          containerProps={{ className: "min-w-[100px]" }}
-        />
-        {errors.amount && (
-          <Typography className="text-sm text-red-500 mt-1">
-            {errors.amount.message}
-          </Typography>
-        )}
-      </div>
+      
       <div className="flex gap-5 ml-auto mt-10">
         <Button
           type="submit"
@@ -128,9 +102,24 @@ const ConfirmTransectionForm = ({
           }`}
           ripple={false}
           disabled={!isValid}
-          onClick={handleTransectionSuccess}
+          onClick={handleFragmentSuccess}
         >
           Submit
+        </Button>
+      </div>
+
+      <div>
+
+      <Button
+          type="submit"
+          className={`h-12 w-[140px] rounded-[56px] px-4 py-6 flex justify-center items-center text-base text-white leading-4 font-medium shadow-none hover:shadow-none capitalize ${
+            isValid ? "bg-[#4CAF50]" : "bg-[#F2F2F2] text-[#48484D]"
+          }`}
+          ripple={false}
+          disabled={!isValid}
+          onClick={handleFragmentFailed}
+        >
+          Failed
         </Button>
       </div>
     </form>

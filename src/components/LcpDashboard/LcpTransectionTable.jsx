@@ -13,7 +13,9 @@ const TABLE_HEAD = [
   "State",
   "Request Id",
   "Fragment Id",
-  "Deposite Id",
+  "Country",
+  "Bank",
+  "Amount",
   "Expire At",
 ];
 
@@ -22,28 +24,36 @@ const orderList = [
     state: "Req_Confirmed",
     requestId: "654551",
     fragmentId: "654551",
-    depositeId: "654551",
+    country: "USA",
+    bank: "Bank of America",
+    amount: "1,000 ETB",
     expireAt: "27/10/24 23.59.35",
   },
   {
     state: "Req_Confirmed",
     requestId: "654552",
     fragmentId: "654552",
-    depositeId: "654552",
+    country: "Canada",
+    bank: "Royal Bank of Canada",
+    amount: "2,000 ETB",
     expireAt: "27/10/24 23.59.35",
   },
   {
     state: "Req_Confirmed",
     requestId: "654553",
     fragmentId: "654553",
-    depositeId: "654553",
+    country: "UK",
+    bank: "HSBC",
+    amount: "1,500 ETB",
     expireAt: "27/10/24 23.59.35",
   },
   {
     state: "Req_Confirmed",
     requestId: "654554",
     fragmentId: "654554",
-    depositeId: "654554",
+    country: "India",
+    bank: "State Bank of India",
+    amount: "75,000 ETB",
     expireAt: "27/10/24 23.59.35",
   },
 ];
@@ -90,7 +100,7 @@ const LcpTransectionTable = () => {
   return (
     <div>
       <div className="relative overflow-auto rounded-lg shadow-none border border-[#E2E8F0]">
-        <table className="w-full min-w-max table-auto text-left">
+        <table className=" w-full min-w-max table-auto text-left">
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
@@ -98,7 +108,7 @@ const LcpTransectionTable = () => {
                   key={head}
                   className="border-b p-4 bg-[#F6F8FA] border-r border-[#E2E8F0]"
                 >
-                  <Typography className="text-base font-semibold leading-5 text-secondary uppercase">
+                  <Typography className="text-base font-semibold  leading-5 text-secondary uppercase">
                     {head}
                   </Typography>
                 </th>
@@ -108,7 +118,15 @@ const LcpTransectionTable = () => {
           <tbody>
             {paginatedOrder.map(
               (
-                { state, requestId, fragmentId, depositeId, expireAt },
+                {
+                  state,
+                  requestId,
+                  fragmentId,
+                  country,
+                  bank,
+                  amount,
+                  expireAt,
+                },
                 index
               ) => {
                 const isLast = index === paginatedOrder.length - 1;
@@ -129,7 +147,7 @@ const LcpTransectionTable = () => {
                             <img
                               src={unlock}
                               alt="unlock"
-                              className="h-5 w-5 object-cover"
+                              className="h-4 w-4 object-cover"
                             />{" "}
                             <span>Click here to lock</span>
                           </button>
@@ -150,13 +168,13 @@ const LcpTransectionTable = () => {
                     </td>
                     <td className={`${classes}`}>
                       {isLocked ? (
-                        <button className="h-12 w-[120px] rounded-lg bg-[#4CAF50] bg-opacity-[10%] text-[#4CAF50] flex items-center justify-center">
+                        <button className="h-[36px] w-[120px] rounded-lg bg-[#4CAF50] bg-opacity-[10%] text-[#4CAF50] flex items-center justify-center">
                           <Typography className="text-base font-normal leading-[22.4px]">
                             Locked
                           </Typography>
                         </button>
                       ) : (
-                        <button className="h-12 w-[120px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-center">
+                        <button className="h-[36px] w-[94px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-center">
                           <Typography className="text-base font-normal leading-[22.4px]">
                             Unlocked
                           </Typography>
@@ -174,12 +192,22 @@ const LcpTransectionTable = () => {
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Typography className="uppercase text-base font-normal leading-[22.4px]">
-                        {depositeId}
+                      <Typography className="text-base font-normal leading-[22.4px]">
+                        {country}
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <div className="h-12 w-[175px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-center">
+                      <Typography className="text-base font-normal leading-[22.4px]">
+                        {bank}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography className="h-[36px] w-[99px] text-[#4CAF50] text-base bg-[#4CAF50]/10 py-[7px] text-center font-normal leading-[22.4px] rounded-[9px]">
+                        {amount}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <div className="h-[36px] w-[175px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-around">
                         <Typography className="text-base font-normal leading-[22.4px]">
                           {expireAt}
                         </Typography>
