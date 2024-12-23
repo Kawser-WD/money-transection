@@ -110,7 +110,7 @@ const ConfirmTransectionForm = ({
 
       <div>
 
-      <Button
+      {/* <Button
           type="submit"
           className={`h-12 w-[140px] rounded-[56px] px-4 py-6 flex justify-center items-center text-base text-white leading-4 font-medium shadow-none hover:shadow-none capitalize ${
             isValid ? "bg-[#4CAF50]" : "bg-[#F2F2F2] text-[#48484D]"
@@ -120,7 +120,7 @@ const ConfirmTransectionForm = ({
           onClick={handleFragmentFailed}
         >
           Failed
-        </Button>
+        </Button> */}
       </div>
     </form>
   );
