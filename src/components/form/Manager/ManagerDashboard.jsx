@@ -48,9 +48,7 @@ const orderList = [
 ];
 
 const LcpTransectionTable = () => {
-  const [lockStates, setLockStates] = useState(
-    Array(orderList.length).fill(false)
-  );
+  const [lockStates, setLockStates] = useState(Array(orderList.length).fill(false));
   const [confirmTransection, setConfirmTransection] = useState(false);
   const [fragmentSuccess, setFragmentSuccess] = useState(false);
   const [fragmentFailed, setFragmentFailed] = useState(false);
@@ -58,23 +56,22 @@ const LcpTransectionTable = () => {
 
   const handleOpenConfirmTransection = (index) => {
     setConfirmTransection(!confirmTransection);
-    setCurrentIndex(index); // Track the current row being processed
+    setCurrentIndex(index);
   };
 
   const handleFragmentSuccess = () => {
     if (currentIndex !== null) {
-      // Update lock state for the specific row only after success
       setLockStates((prevStates) =>
         prevStates.map((isLocked, i) => (i === currentIndex ? true : isLocked))
       );
     }
     setFragmentSuccess(!fragmentSuccess);
-    setConfirmTransection(false); // Close the confirm modal
+    setConfirmTransection(false);
   };
 
   const handleFragmentFailed = () => {
     setFragmentFailed(!fragmentFailed);
-    setConfirmTransection(false); // Close the confirm modal
+    setConfirmTransection(false);
   };
 
   const [active, setActive] = useState(1);
@@ -95,17 +92,39 @@ const LcpTransectionTable = () => {
     if (active > 1) setActive(active - 1);
   };
 
+  const ActionButton = ({ isDisabled, isLocked, onClick }) => {
+    const buttonColor = isDisabled
+      ? "bg-[#8E8F96] cursor-not-allowed"
+      : isLocked
+      ? "bg-[#4CAF50] text-[14px]"
+      : "bg-[#2C73FF]";
+    const buttonText = isLocked ? "Completed Fragments" : "Create Fragments";
+
+    return (
+      <button
+        className={`flex items-center gap-2 justify-center rounded-lg text-white h-9 w-full sm:w-full md:w-full ${buttonColor}`}
+        onClick={onClick}
+        disabled={isDisabled || isLocked}
+      >
+        <img
+          src={isLocked ? tick : win}
+          alt="icon"
+          className="h-4 w-4 object-cover"
+        />
+        <span>{buttonText}</span>
+      </button>
+    );
+  };
+
   return (
-    <div>
-      <div className="relative overflow-auto rounded-lg shadow-none border border-[#E2E8F0]">
+    <div className="w-full">
+      {/* Desktop Table View */}
+      <div className="hidden lg:block relative overflow-auto rounded-lg shadow-none border border-[#E2E8F0]">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className="border-b p-4 bg-[#F6F8FA] border-r border-[#E2E8F0]"
-                >
+                <th key={head} className="border-b p-4 bg-[#F6F8FA] border-r border-[#E2E8F0]">
                   <Typography className="text-base font-semibold leading-5 text-secondary uppercase">
                     {head}
                   </Typography>
@@ -114,98 +133,111 @@ const LcpTransectionTable = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedOrder.map(
-              (
-                { state, userId, requestId, method, txId, expireAt },
-                index
-              ) => {
-                const isLast = index === paginatedOrder.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
-                const isLocked = lockStates[index];
+            {paginatedOrder.map((item, index) => {
+              const isLast = index === paginatedOrder.length - 1;
+              const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+              const isLocked = lockStates[index];
+              const isDisabled = item.state === "Req_Fragmented";
 
-                const isDisabled = state === "Req_Fragmented";
-                const buttonColor = isDisabled
-                  ? "bg-[#8E8F96] cursor-not-allowed"
-                  : isLocked
-                  ? "bg-[#4CAF50] text-[14px]" // Green for completed
-                  : "bg-[#2C73FF]"; // Blue for active
-                const buttonText = isLocked
-                  ? "Completed Fragments"
-                  : "Create Fragments";
-
-                return (
-                  <tr key={requestId}>
-                    <td className={classes}>
-                      <div className="relative">
-                        <button
-                          className={`flex items-center gap-2 justify-center rounded-lg text-white h-9 w-[168px] ${buttonColor}`}
-                          onClick={() =>
-                            !isDisabled && !isLocked && handleOpenConfirmTransection(index)
-                          }
-                          disabled={isDisabled || isLocked} // Disable if already locked or state is disabled
-                        >
-                          <img
-                            src={isLocked ? tick  : win}
-                            alt="icon"
-                            className="h-4 w-4 object-cover"
-                          />{" "}
-                          <span>{buttonText}</span>
-                        </button>
-                      </div>
-                    </td>
-                    <td className={`${classes}`}>
-                      <div className="h-[36px] w-[166px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center px-[10px]">
-                        <Typography className="text-[16px] font-normal leading-[22.4px]">
-                          {state}
-                        </Typography>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <Typography className="uppercase text-base font-normal leading-[22.4px]">
-                        {userId}
+              return (
+                <tr key={item.requestId}>
+                  <td className={classes}>
+                    <ActionButton
+                      isDisabled={isDisabled}
+                      isLocked={isLocked}
+                      onClick={() => !isDisabled && !isLocked && handleOpenConfirmTransection(index)}
+                    />
+                  </td>
+                  <td className={classes}>
+                    <div className="h-[36px] w-[166px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center px-[10px]">
+                      <Typography className="text-[16px] font-normal leading-[22.4px]">
+                        {item.state}
                       </Typography>
-                    </td>
-                    <td className={`${classes}`}>
-                      <Typography className="uppercase text-base font-normal leading-[22.4px]">
-                        {requestId}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
+                    </div>
+                  </td>
+                  <td className={classes}>
+                    <Typography className="uppercase text-base font-normal leading-[22.4px]">
+                      {item.userId}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Typography className="uppercase text-base font-normal leading-[22.4px]">
+                      {item.requestId}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Typography className="text-base font-normal leading-[22.4px]">
+                      {item.method}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Typography className="text-base font-normal leading-[22.4px]">
+                      {item.txId}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <div className="h-[36px] w-[175px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-around">
                       <Typography className="text-base font-normal leading-[22.4px]">
-                        {method}
+                        {item.expireAt}
                       </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography className="text-base font-normal leading-[22.4px]">
-                        {txId}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <div className="h-[36px] w-[175px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-around">
-                        <Typography className="text-base font-normal leading-[22.4px]">
-                          {expireAt}
-                        </Typography>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              }
-            )}
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
+
+      {/* Mobile Card View */}
+      <div className="lg:hidden space-y-4">
+        {paginatedOrder.map((item, index) => {
+          const isLocked = lockStates[index];
+          const isDisabled = item.state === "Req_Fragmented";
+
+          return (
+            <div key={item.requestId} className="border rounded-lg p-4 bg-white shadow-sm">
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <Typography className="font-semibold text-base">
+                    Request ID: {item.requestId}
+                  </Typography>
+                  <div className="text-sm px-2 py-1 rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014]">
+                    {item.state}
+                  </div>
+                </div>
+                
+                <div className="space-y-2 text-sm md:text-base">
+                  <p>User ID: {item.userId}</p>
+                  <p>Method: {item.method}</p>
+                  <p>TX ID: {item.txId}</p>
+                  <p>Expires: {item.expireAt}</p>
+                </div>
+
+                <div className="mt-4 ">
+                  <ActionButton
+                    isDisabled={isDisabled}
+                    isLocked={isLocked}
+                    onClick={() => !isDisabled && !isLocked && handleOpenConfirmTransection(index)}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Pagination - Same for both views */}
       <div className="flex items-center justify-between p-4">
         <div>
-          <p className="text-lg font-medium leading-[22.66px] text-[#8E8F96]">
+          <p className="text-sm md:text-lg font-medium leading-[22.66px] text-[#8E8F96]">
             Show Page <span className="text-black">{active}</span> of{" "}
-            <span>{totalPages}</span>{" "}
+            <span>{totalPages}</span>
           </p>
         </div>
         <div className="flex items-center gap-4">
           <button
-            className="flex items-center justify-center rounded-full bg-[#f6f6f6] h-10 w-10"
+            className="flex items-center justify-center rounded-full bg-[#f6f6f6] h-8 w-8 md:h-10 md:w-10"
             onClick={prev}
             disabled={active === 1}
           >
@@ -217,7 +249,7 @@ const LcpTransectionTable = () => {
           </button>
 
           <button
-            className="flex items-center justify-center rounded-full bg-[#f6f6f6] h-10 w-10"
+            className="flex items-center justify-center rounded-full bg-[#f6f6f6] h-8 w-8 md:h-10 md:w-10"
             onClick={next}
             disabled={active === totalPages}
           >
@@ -229,6 +261,8 @@ const LcpTransectionTable = () => {
           </button>
         </div>
       </div>
+
+      {/* Modals */}
       <ConfirmTransection
         handleOpenConfirmTransection={handleOpenConfirmTransection}
         confirmTransection={confirmTransection}

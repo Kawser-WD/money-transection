@@ -13,7 +13,7 @@ const ConfirmTransection = ({
     <Dialog
       open={confirmTransection}
       handler={handleOpenConfirmTransection}
-      className="w-[780px] h-[530px] rounded-2xl"
+      className="w-[100%] h-[530px] rounded-2xl"
     >
       <DialogHeader className="bg-ash h-[68px] flex justify-between items-center px-6 rounded-2xl">
         <span className="text-2xl font-medium leading-[33.6px] text-secondary">

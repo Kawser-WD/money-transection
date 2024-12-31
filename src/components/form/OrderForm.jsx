@@ -10,12 +10,11 @@ import {
 import { useState } from "react";
 import arrow from "../../assets/icon/Arrow - Down 2.png";
 import ConfirmTransferModal from "../CreateOrder/ConfirmTransferModal";
+
 const COUNTRIES = ["France (+33)", "Germany (+49)", "Spain (+34)", "USA (+1)"];
 const CODES = ["+33", "+49", "+34", "+1"];
 
 const OrderForm = ({ handleOpen, handleConfirm }) => {
-  // const [confirm, setConfirm] = useState(false);
-  // const handleConfirm = () => setConfirm(!confirm);
   const [country, setCountry] = useState(0);
   const [formData, setFormData] = useState({
     userId: "",
@@ -42,7 +41,7 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
   return (
     <section>
       <>
-        <div className="mt-[39px]">
+      <div className="mt-[39px]">
           <span className="text-xl font-medium leading-7 text-secondary">
             Transfer Amount
           </span>
@@ -83,7 +82,7 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
           <span className="text-xl font-medium leading-7 text-secondary">
             Receiver Information
           </span>
-          <div className="grid grid-cols-3 gap-5 mt-7">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-7">
             <InputField
               name="firstName"
               label="First Name"
@@ -106,7 +105,7 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
               handleChange={handleChange}
             />
 
-            <div className="space-y-3 col-span-3">
+            <div className="space-y-3 col-span-1 sm:col-span-3">
               <Typography className="text-base font-medium text-[#48484D]">
                 Phone Number
               </Typography>
@@ -139,7 +138,7 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
                   type="text"
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  placeholder="Enter Last Name"
+                  placeholder="Enter Phone Number"
                   className="!border !border-[#CBD5E0] text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 !h-12 !rounded-r-3xl !rounded-l-none !border-l-0"
                   labelProps={{
                     className: "hidden",
@@ -148,7 +147,7 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
                 />
               </div>
             </div>
-            <div className="col-span-3">
+            <div className="col-span-1 sm:col-span-3">
               <InputField
                 name="notificationReference"
                 label="Notification Reference"
@@ -164,7 +163,7 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
           <span className="text-xl font-medium leading-7 text-secondary">
             Receiver Bank
           </span>
-          <div className="grid grid-cols-3 gap-5 mt-7">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-7">
             <SelectField
               name="receiverCountry"
               label="Country"
@@ -177,7 +176,7 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
               value={formData.bankName}
               handleChange={handleChange}
             />
-            <div className="col-span-3">
+            <div className="col-span-1 sm:col-span-3">
               <InputField
                 name="accountNumber"
                 label="Account Number"
@@ -192,7 +191,7 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
           <button
             type="submit"
             disabled={!isFormComplete}
-            className={`w-[140px] h-12 rounded-[56px] py-4 sm:px-6 gap-[10px] text-base leading-4 font-medium text-center ${
+            className={`w-[140px] h-12 rounded-[56px] mb-8 py-4 sm:px-6 gap-[10px] text-base leading-4 font-medium text-center ${
               isFormComplete ? "bg-primary text-ash" : "bg-[#f2f2f2] text-pash"
             }`}
             onClick={() => {
@@ -231,7 +230,7 @@ const InputField = ({ name, label, placeholder, value, handleChange }) => (
 
 // Reusable SelectField Component
 const SelectField = ({ name, label, value, handleChange }) => (
-  <div className="col-span-3 space-y-3 relative">
+  <div className="space-y-3 relative">
     <Typography className="text-base font-medium text-[#48484D]">
       {label}
     </Typography>
@@ -239,7 +238,7 @@ const SelectField = ({ name, label, value, handleChange }) => (
       name={name}
       value={value}
       onChange={handleChange}
-      className="appearance-none border border-[#CBD5E0] text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 h-12 rounded-3xl w-full cursor-pointer focus:outline-none px-3 pr-10" // Add padding-right to create space for icon
+      className="appearance-none border border-[#CBD5E0] text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 h-12 rounded-3xl w-full cursor-pointer focus:outline-none px-3 pr-10"
     >
       <option value="" disabled>
         Select {label}
@@ -247,7 +246,6 @@ const SelectField = ({ name, label, value, handleChange }) => (
       <option value="Option 1">Option 1</option>
       <option value="Option 2">Option 2</option>
     </select>
-    {/* Chevron Icon */}
     <span className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
       <img src={arrow} alt="arrow-down" className="h-6 w-6 object-cover" />
     </span>

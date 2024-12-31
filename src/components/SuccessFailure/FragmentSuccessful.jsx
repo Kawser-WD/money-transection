@@ -18,7 +18,7 @@ const FragmentSuccessful = ({
             className="object-cover h-[53.33px] w-[53.33px]"
           />
         </div>
-        <span className="font-medium text-[28px] leading-[39.2px] text-[#090914]">
+        <span className="font-medium text-[28px] text-center leading-[39.2px] text-[#090914]">
           Create Fragment Successfully!
         </span>
       </DialogBody>

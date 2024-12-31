@@ -99,14 +99,15 @@ const LcpTransectionTable = () => {
 
   return (
     <div>
-      <div className="relative overflow-auto rounded-lg shadow-none border border-[#E2E8F0]">
-        <table className=" w-full min-w-max table-auto text-left">
-          <thead>
+      <div className="relative max-w-full  overflow-auto rounded-lg shadow-none border border-[#E2E8F0]">
+        {/* For large screens */}
+        <table className=" hidden lg:table  w-full min-w-max table-auto text-left border-none">
+          <thead className="">
             <tr>
               {TABLE_HEAD.map((head) => (
                 <th
                   key={head}
-                  className="border-b p-4 bg-[#F6F8FA] border-r border-[#E2E8F0]"
+                  className="border-b p-4 lg:bg-[#F6F8FA] lg:border-r lg:border-[#E2E8F0]"
                 >
                   <Typography className="text-base font-semibold  leading-5 text-secondary uppercase">
                     {head}
@@ -219,40 +220,123 @@ const LcpTransectionTable = () => {
             )}
           </tbody>
         </table>
-      </div>
+        </div>
+        {/* For small screens */}
+        <div className="lg:hidden w-[100%]">
+  {paginatedOrder.map(
+    (
+      { state, requestId, fragmentId, country, bank, amount, expireAt },
+      index
+    ) => {
+      const isLocked = lockStates[index];
+      return (
+        <div
+          key={requestId}
+          className=" lg:hidden border p-4 mb-4 rounded-lg bg-white w-[100%] max-w-full"
+        >
+          <div className="flex justify-between">
+            <div>
+          <Typography className="font-semibold text-base md:text-[20px]">
+            Request ID: {requestId}
+          </Typography>
+          </div>
+          <div className="mt-2">
+                  {isLocked ? (
+                    <button className="h-[36px] w-[120px] rounded-lg bg-[#4CAF50] bg-opacity-[10%] text-[#4CAF50]">
+                      <Typography className="text-base font-normal ">
+                        Locked
+                      </Typography>
+                    </button>
+                  ) : (
+                    <button className="h-[36px] w-[94px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014]">
+                      <Typography className="text-base font-normal leading-[22.4px]">
+                        Unlocked
+                      </Typography>
+                    </button>
+                  )}
+                </div>
+            </div>
+          <Typography className="text-sm text-gray-500 md:text-base">
+            Fragment ID: {fragmentId}
+          </Typography>
+          <Typography className="text-sm md:text-base">
+            Country: {country}
+          </Typography>
+          <Typography className="text-sm md:text-base">
+            Bank: {bank}
+          </Typography>
+          <Typography className="text-sm md:text-base">
+            Amount: {amount}
+          </Typography>
+          <Typography className="text-sm md:text-base">
+            Expire At: {expireAt}
+          </Typography>
+          
+          <div className="relative mt-4">
+                                 {!isLocked ? (
+                                   <button
+                                     className="flex  items-center gap-2 justify-center rounded-lg bg-[#2C73FF] text-white h-9 w-[100%]"
+                                     onClick={() => toggleLock(index)}
+                                   >
+                                     <img
+                                       src={unlock}
+                                       alt="unlock"
+                                       className="h-5 w-5 object-cover"
+                                     />{" "}
+                                     <span>Click here to lock</span>
+                                   </button>
+                                 ) : (
+                                   <button
+                                     className="flex items-center gap-2 justify-center rounded-lg bg-[#4CAF50] text-white h-9  w-[100%]"
+                                     onClick={() => handleOpenConfirmTransection()}
+                                   >
+                                     <img
+                                       src={security}
+                                       alt="unlock"
+                                       className="h-5 w-5 "
+                                     />{" "}
+                                     <span>Click here to transfer</span>
+                                   </button>
+                                 )}
+                               </div>
+                </div>
+              );
+            }
+          )}
+        </div>
+       
       <div className="flex items-center justify-between p-4">
+        <p className="text-lg">
+          Page {active} of {totalPages}
+        </p>
         <div>
-          <p className="text-lg font-medium leading-[22.66px] text-[#8E8F96]">
-            Show Page <span className="text-black">{active}</span> of{" "}
-            <span>{totalPages}</span>{" "}
-          </p>
-        </div>
-        <div className="flex items-center gap-4">
-          <button
-            className="flex items-center justify-center rounded-full bg-[#f6f6f6] h-10 w-10"
-            onClick={prev}
-            disabled={active === 1}
-          >
-            <img
-              src={arrowLeft}
-              alt="arrow-left"
-              className="h-[9.33px] w-[5.33px]"
-            />
-          </button>
-
-          <button
-            className="flex items-center justify-center rounded-full bg-[#f6f6f6] h-10 w-10"
-            onClick={next}
-            disabled={active === totalPages}
-          >
-            <img
-              src={arrowRight}
-              alt="arrow-right"
-              className="h-[9.33px] w-[5.33px]"
-            />
-          </button>
+          <div className="flex gap-2">
+                    <button
+                               className="flex items-center justify-center rounded-full bg-[#f6f6f6] h-10 w-10"
+                               onClick={prev}
+                               disabled={active === 1}
+                             >
+                               <img
+                                 src={arrowLeft}
+                                 alt="arrow-left"
+                                 className="h-[9.33px] w-[5.33px]"
+                               />
+                             </button>
+                   <button
+                               className="flex items-center justify-center rounded-full bg-[#f6f6f6] h-10 w-10"
+                               onClick={next}
+                               disabled={active === totalPages}
+                             >
+                               <img
+                                 src={arrowRight}
+                                 alt="arrow-right"
+                                 className="h-[9.33px] w-[5.33px]"
+                               />
+                             </button>
+                 </div>
         </div>
       </div>
+
       <ConfirmTransection
         handleOpenConfirmTransection={handleOpenConfirmTransection}
         confirmTransection={confirmTransection}
@@ -274,3 +358,4 @@ const LcpTransectionTable = () => {
 };
 
 export default LcpTransectionTable;
+
