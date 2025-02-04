@@ -17,7 +17,7 @@ const OrderModal = ({ handleOpen, open }) => {
       <Dialog
         open={open}
         handler={handleOpen}
-        className="max-w-[780px] max-h-[900px] overflow-y-scroll scroll-smooth rounded-2xl"
+        className="max-w-[780px] max-h-[800px] overflow-y-scroll scroll-smooth rounded-2xl"
       >
         <DialogHeader className="bg-ash  h-[68px] flex justify-between items-center px-10">
           <span className="text-2xl font-medium leading-[33.6px] text-secondary">

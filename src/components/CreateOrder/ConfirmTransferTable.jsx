@@ -3,116 +3,40 @@ import { Typography } from "@material-tailwind/react";
 const ConfirmTransferTable = () => {
   return (
     <section className="grid grid-cols-2 gap-5">
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Request Id
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            546546554
-          </Typography>
+      {[
+        { label: "Request Id", value: "546546554" },
+        { label: "Amount", value: "521.5" },
+        { label: "Exchange Type", value: "USD2ETB" },
+        { label: "Exchange Rate", value: "111.15" },
+        { label: "Exchange Amount", value: "513215544" },
+        { label: "Full Name", value: "Farhan Afid" },
+        { label: "Phone Number", value: "+880 665656" },
+        { label: "Notification Preference", value: "WHATSAPP" },
+        { label: "Bank Name", value: "CBE" },
+        { label: "Account No", value: "513215" },
+      ].map((item, index) => (
+        <div
+          key={index}
+          className="h-14 w-full rounded-[30px] border flex items-center px-4 py-3"
+        >
+          {/* Left Label */}
+          <div className="flex-1">
+            <Typography className="text-lg leading-[25.2px] font-normal text-pash">
+              {item.label}
+            </Typography>
+          </div>
+
+          {/* Separator Bar */}
+          <div className="w-[1px] h-6 bg-[#CBD5E0]"></div>
+
+          {/* Right Value */}
+          <div className="flex-1 text-right">
+            <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
+              {item.value}
+            </Typography>
+          </div>
         </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Amount
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            521.5
-          </Typography>
-        </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Exchange Type
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            USD2ETB
-          </Typography>
-        </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Exchange Rate
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            111.15
-          </Typography>
-        </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Exchange Amount
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            513215544
-          </Typography>
-        </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Full Name
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            Farhan Afid
-          </Typography>
-        </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Phone Number
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            +880 665656
-          </Typography>
-        </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Notification Preference
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            WHATSAPP
-          </Typography>
-        </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Bank Name
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            CBE
-          </Typography>
-        </div>
-      </div>
-      <div className="h-14 w-full rounded-[30px] border flex justify-between items-center px-4 py-3">
-        <Typography className="text-lg leading-[25.2px] font-normal text-pash">
-          Account No
-        </Typography>
-        <div className="flex gap-6">
-          <div className="border-l border-[#CBD5E0]"></div>
-          <Typography className="text-lg leading-[25.2px] font-normal text-secondary">
-            513215
-          </Typography>
-        </div>
-      </div>
+      ))}
     </section>
   );
 };

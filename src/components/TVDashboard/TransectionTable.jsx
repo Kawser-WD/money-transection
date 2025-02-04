@@ -150,13 +150,13 @@ const TransectionTable = () => {
                     </td>
                     <td className={`${classes}`}>
                       {isLocked ? (
-                        <button className="h-12 w-[120px] rounded-lg bg-[#4CAF50] bg-opacity-[10%] text-[#4CAF50] flex items-center justify-center">
+                        <button className="h-[36px] w-[120px] rounded-lg bg-[#4CAF50] bg-opacity-[10%] text-[#4CAF50] flex items-center justify-center">
                           <Typography className="text-base font-normal leading-[22.4px]">
                             Locked
                           </Typography>
                         </button>
                       ) : (
-                        <button className="h-12 w-[120px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-center">
+                        <button className="h-[36px] w-[120px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-center">
                           <Typography className="text-base font-normal leading-[22.4px]">
                             Unlocked
                           </Typography>
@@ -179,7 +179,7 @@ const TransectionTable = () => {
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <div className="h-12 w-[175px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-center">
+                      <div className="h-[36px] w-[175px] rounded-lg bg-[#FA5014] bg-opacity-[10%] text-[#FA5014] flex items-center justify-center">
                         <Typography className="text-base font-normal leading-[22.4px]">
                           {expireAt}
                         </Typography>

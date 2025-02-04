@@ -13,7 +13,7 @@ const CreateOrder = () => {
           Create new order from here
         </h1>
         <button
-          className="w-[145px] h-12 rounded-[56px] py-4 sm:px-6 gap-[10px] bg-primary text-[#FFFFFF] text-base leading-4 font-medium text-center"
+          className="w-[145px] h-12 rounded-[56px]  gap-[10px] bg-primary text-[#FFFFFF] text-base leading-4 font-medium text-center"
           onClick={handleOpen}
         >
           Create Order

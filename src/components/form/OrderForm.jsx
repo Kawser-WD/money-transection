@@ -25,7 +25,6 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
     phoneNumber: "",
     notificationReference: "",
     receiverCountry: "",
-    bankName: "",
     accountNumber: "",
   });
 
@@ -64,16 +63,17 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
               </select>
             </div>
             <div className="space-y-3">
-              <Typography className="text-base font-medium text-[#48484D]">
-                Amount
-              </Typography>
-              <InputField
+            <span>
+            <div className="text-base mb-3 font-medium text-[#48484D] leading-[22.4px]">Amount</div>
+            <input
                 name="amount"
                 type="text"
                 value={formData.amount}
-                handleChange={handleChange}
+                onChange={handleChange}
                 placeholder="Enter Amount"
+                className="border border-[#CBD5E0] text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 h-12 !rounded-3xl w-full cursor-pointer focus:outline-none px-3"
               />
+              </span>
             </div>
           </div>
         </div>
@@ -83,27 +83,39 @@ const OrderForm = ({ handleOpen, handleConfirm }) => {
             Receiver Information
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-7">
-            <InputField
+            <span>
+            <div className="text-base mb-3 font-medium text-[#48484D] leading-[22.4px]">First Name</div>
+            <input
               name="firstName"
               label="First Name"
               placeholder="Enter First Name"
               value={formData.firstName}
-              handleChange={handleChange}
+              onChange={handleChange}
+              className="border border-[#CBD5E0] text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 h-12 !rounded-3xl w-full cursor-pointer focus:outline-none px-3"
             />
-            <InputField
+            </span>
+            <span>
+            <div className="text-base mb-3 font-medium text-[#48484D] leading-[22.4px]">Middle Name</div>
+            <input
               name="middleName"
               label="Middle Name"
               placeholder="Enter Middle Name"
               value={formData.middleName}
-              handleChange={handleChange}
+              onChange={handleChange}
+              className="border border-[#CBD5E0] text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 h-12 !rounded-3xl w-full cursor-pointer focus:outline-none px-3"
             />
-            <InputField
+            </span>
+            <span>
+            <div className="text-base mb-3 font-medium text-[#48484D] leading-[22.4px]">Last Name</div>
+            <input
               name="lastName"
               label="Last Name"
               placeholder="Enter Last Name"
               value={formData.lastName}
-              handleChange={handleChange}
+              onChange={handleChange}
+              className="border border-[#CBD5E0] text-[#48484D] placeholder:text-[#8E8F96] placeholder:text-base placeholder:font-normal placeholder:leading-[22.4px] placeholder:opacity-100 h-12 !rounded-3xl w-full cursor-pointer focus:outline-none px-3"
             />
+            </span>
 
             <div className="space-y-3 col-span-1 sm:col-span-3">
               <Typography className="text-base font-medium text-[#48484D]">
